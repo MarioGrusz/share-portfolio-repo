@@ -1,0 +1,78 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+$number-size: 17.5rem;
+$tablet-number-size: 15rem;
+$mobile-number-size: 10rem;
+
+.project-counter {
+  font-family: "Roboto Mono", monospace;
+
+  @include mq(phone, max) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__number-row {
+    display: block;
+    width: 100%;
+    margin: 5vw 0 5vw 0;
+
+    @include mq(phone, max) {
+      text-align: center;
+      margin: 20vw 0 5vw 0;
+    }
+  }
+
+  &__number-outer {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    flex-direction: row;
+    font-weight: 400;
+    font-size: $number-size;
+    line-height: 1;
+
+    @include mq(tablet-wide, max) {
+      font-size: $tablet-number-size;
+    }
+
+    @include mq(phone, max) {
+      font-size: $mobile-number-size;
+    }
+  }
+
+  &__number-box {
+    display: inline-flex;
+    overflow: hidden;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: $number-size;
+
+    @include mq(tablet-wide, max) {
+      height: $tablet-number-size;
+    }
+
+    @include mq(phone, max) {
+      height: $mobile-number-size;
+    }
+  }
+
+  &__number {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-direction: row;
+  }
+
+  &__dot {
+    margin-left: -4rem;
+    color: $color-olive;
+
+    @include mq(phone, max) {
+      margin-left: -2.5rem;
+    }
+  }
+}

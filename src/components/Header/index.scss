@@ -1,0 +1,103 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.header {
+  position: fixed;
+  top: 2.5em;
+  right: 2.75vw;
+  left: 2.75vw;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 1;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  z-index: 40000;
+  opacity: 0;
+
+  span {
+    display: inline-block;
+    pointer-events: all;
+    margin-bottom: 0.5rem;
+
+    position: relative;
+
+    @include mq(phone, max) {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__hamburger {
+    display: inline-block;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    height: 3rem;
+  }
+
+  &__hamburger:focus {
+    outline: none;
+  }
+
+  &__hamburger-box {
+    position: relative;
+    width: 3.5rem;
+    height: 1.2rem;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 200;
+
+    @include mq(tablet-wide, max) {
+      height: 1.2rem;
+    }
+
+    .line {
+      display: block;
+      background-color: $color-black;
+      width: 2.5rem;
+      height: 0.125rem;
+      transition: 0.5s ease-out;
+      transition-delay: 0s;
+      transform-origin: center;
+      position: absolute;
+      left: 0;
+      transition-delay: 0.2s;
+      width: 100%;
+
+      @include mq(phone, max) {
+        width: 2rem;
+      }
+    }
+
+    .line--1,
+    .line--2 {
+      transform: translateZ(0) rotate(0deg) scale(1);
+    }
+
+    .line--2 {
+      bottom: 0;
+    }
+
+    .line--1.is-active {
+      transform: translateZ(0) translateY(0.6rem) rotate(-315deg);
+      background-color: $color-grey;
+
+      @include mq(tablet-wide, max) {
+        transform: translateZ(0) translateY(0.6rem) rotate(-315deg);
+        width: 1.5rem;
+      }
+    }
+
+    .line--2.is-active {
+      transform: translateZ(0) translateY(0) rotate(-225deg);
+      background-color: $color-grey;
+
+      @include mq(tablet-wide, max) {
+        width: 1.5rem;
+      }
+    }
+  }
+}

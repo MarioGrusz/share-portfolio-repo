@@ -1,0 +1,108 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+$project-image-border-radious: 1rem;
+
+.projects {
+  &__container {
+    margin: $container-margin;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: min-content;
+    grid-column-gap: 0.8rem;
+
+    position: relative;
+
+    @include mq(tablet-small, max) {
+    }
+
+    @include mq(phone, max) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__details {
+    grid-column: 1/7;
+    padding-right: calc((100% - 125px) / 6);
+
+    .text-wrapper {
+      @include mq(phone, max) {
+        margin-bottom: 3rem;
+      }
+
+      h2 {
+        font-size: 6em;
+        font-weight: 700;
+        text-transform: uppercase;
+
+        @include mq(tablet-wide, max) {
+          font-size: 4.3em;
+        }
+
+        @include mq(tablet-small, max) {
+          font-size: 3.5em;
+        }
+
+        @include mq(phone, max) {
+          font-size: 4em;
+        }
+      }
+
+      p {
+        text-transform: uppercase;
+        font-size: 3em;
+        text-align: justify;
+
+        @include mq(tablet-wide, max) {
+          font-size: 2.7em;
+        }
+      }
+    }
+  }
+
+  &__image {
+    grid-column: 7/13;
+    height: 100vh;
+    position: relative;
+
+    @include mq(tablet-wide, max) {
+      height: auto;
+    }
+
+    .image-container {
+      display: flex;
+      overflow: hidden;
+      height: 550px;
+      border-radius: $project-image-border-radious;
+    }
+
+    .image-parallax {
+      transform-origin: top;
+      width: 100%;
+      border-radius: $project-image-border-radious;
+
+      img {
+        object-fit: cover;
+        //width: calc(100vw - 20px * 2);
+        height: 650px;
+        border-radius: $project-image-border-radious;
+      }
+    }
+  }
+
+  &__arrow-container {
+    position: absolute;
+    top: 2rem;
+    display: flex;
+    width: auto;
+    z-index: 2;
+    text-decoration: none;
+    padding: 0 0 20px 20px;
+  }
+
+  &__marqueee-wrapper {
+    grid-column: 7/13;
+    height: 100vh;
+  }
+}

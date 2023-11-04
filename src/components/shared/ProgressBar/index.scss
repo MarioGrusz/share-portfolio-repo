@@ -1,0 +1,11 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.progress {
+  height: 0.1rem;
+  background: $color-olive;
+  width: 13%;
+  /* those styles are important, X or Y, you need to change this in js also */
+  transform: scaleX(0);
+  transform-origin: 0 0;
+}

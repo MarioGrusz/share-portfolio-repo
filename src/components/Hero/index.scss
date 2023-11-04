@@ -1,0 +1,60 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  perspective: 1000px;
+
+  margin: $container-margin;
+  margin-top: 2rem;
+
+  @include mq(tablet-wide, max) {
+    opacity: 1;
+  }
+
+  &__transition {
+    position: fixed;
+    inset: 0;
+    background-color: $background-color;
+    z-index: 1000;
+  }
+
+  &__text-container {
+    display: flex;
+    justify-content: center;
+    transform-style: preserve-3d;
+    transform-origin: center top;
+    transition: opacity 0s cubic-bezier(0.215, 0.61, 0.355, 1),
+      transform 0s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+    h1 {
+      font-size: 12vw;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 100%;
+
+      @include mq(phone, max) {
+        font-size: 17vw;
+      }
+    }
+
+    p {
+      font-size: 2vw;
+      padding-top: 1rem;
+
+      @include mq(tablet-wide, max) {
+        font-size: 2.5vw;
+      }
+
+      @include mq(phone, max) {
+        font-size: 4vw;
+      }
+    }
+  }
+}

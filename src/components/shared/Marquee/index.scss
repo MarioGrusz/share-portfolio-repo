@@ -1,0 +1,42 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.container {
+  width: calc(100% - 28vw);
+  width: 100%;
+  margin-left: auto;
+
+  margin-top: 3rem;
+}
+.marquee {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  gap: 1rem;
+}
+.marquee-content {
+  display: flex;
+  gap: 1rem;
+}
+.marquee-content span {
+  font-size: 15vw;
+  font-weight: 700;
+
+  @include mq(phone, max) {
+    font-size: 20vw;
+  }
+}
+
+.marquee-content span::before {
+  background-color: $color-olive;
+  border-radius: 50%;
+  content: "";
+  display: inline-block;
+  height: 0.9375rem;
+  width: 0.9375rem;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  position: relative;
+  top: 0;
+}

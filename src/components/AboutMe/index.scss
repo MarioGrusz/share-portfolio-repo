@@ -1,0 +1,68 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.about-me {
+  &__container {
+    margin: $container-margin;
+    flex-wrap: wrap;
+    font-family: "Roboto Mono", monospace;
+  }
+
+  &__text1,
+  &__text2 {
+    width: 64wv;
+    margin-top: 7.5vw;
+    margin-left: 24.5vw;
+    margin-right: 5vw;
+    flex-grow: 1;
+
+    overflow: hidden;
+
+    @include mq(tablet-wide, max) {
+      margin-left: 10vw;
+    }
+
+    @include mq(phone, max) {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0 1rem;
+    }
+
+    p {
+      font-size: clamp(1rem, 2vw, 3rem);
+      line-height: 1.4em;
+
+      @include mq(tablet-wide, max) {
+        font-size: 2.5vw;
+      }
+
+      @include mq(phone, max) {
+        font-size: 4.5vw;
+      }
+    }
+  }
+
+  &__text1 {
+    margin-left: 16.75vw;
+    margin-bottom: 7.5vw;
+
+    @include mq(tablet-wide, max) {
+      margin-left: 10vw;
+    }
+
+    @include mq(phone, max) {
+      margin-left: 0;
+    }
+  }
+
+  &__text1 p::before,
+  &__text2 p::before {
+    content: "";
+    display: inline-block;
+    width: 8vw;
+  }
+}
+
+.lineChildern {
+  overflow: hidden;
+}
