@@ -7,7 +7,8 @@ import { MainContextProvider } from './context/MainContext';
 
 import HomePage from './pages/HomePage';
 import ProjectPage from './pages/ProjectPage';
-import MainLayout from './Layout/MainLayout';
+import MainLayout from './layout/MainLayout';
+
 
 
 
