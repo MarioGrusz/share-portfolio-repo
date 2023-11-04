@@ -9,7 +9,7 @@ const MainLayout = ({ children }) => {
       <>
         <Header />
         <CustomCursor />
-        <SvgOverlay />
+        {/* <SvgOverlay /> */}
         <main className="app">
           {children}
         </main>

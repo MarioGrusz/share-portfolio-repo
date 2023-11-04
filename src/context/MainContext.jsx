@@ -28,6 +28,7 @@ export const MainContextProvider = ({ children }) => {
     const projectsSectionRef = useRef(null);
     const contactSectionRef = useRef(null);
 
+
     //MENU
     const [openMenu, setOpenMenu] = useState(false);
 

@@ -1,5 +1,5 @@
 import './index.scss';
-import { useRef, useEffect, useContext, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import LocalTime from '../shared/LocalTime/LocalTime';
 import { useMainContext } from '../../context/MainContext';
@@ -16,6 +16,7 @@ const Menu = (props) => {
   const menuRef = useRef(null);
   const timeline = useRef(gsap.timeline());
   const [hasOpenedMenu, setHasOpenedMenu] = useState(false)
+
 
   useEffect(() => {
 

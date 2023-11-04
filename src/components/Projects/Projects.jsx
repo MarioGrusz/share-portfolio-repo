@@ -8,6 +8,7 @@ import ProjectCounter from '../shared/ProjectCounter/ProjectCounter';
 import ArrowSvg from '../shared/ArrowSvg/ArrovSvg';
 import { Link } from 'react-router-dom';
 import { useMainContext } from '../../context/MainContext';
+import Marquee from '../shared/Marquee/Marquee';
 
 
 
@@ -68,12 +69,12 @@ const Projects = () => {
     <>
 
     <section className="projects">
-      {/* <Marquee duration={40}>
+      <Marquee duration={40}>
         <span>Selected Work</span>
         <span>Selected Work</span>
         <span>Selected Work</span>
         <span>Selected Work</span>
-      </Marquee>  */}
+      </Marquee>
       {projects}
     </section>
 

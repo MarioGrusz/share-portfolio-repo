@@ -1,22 +1,49 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import useWindowSize from './hooks/useWindowSize';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { MainContextProvider } from './context/MainContext';
 
 
-
 import HomePage from './pages/HomePage';
-import ProjectPage from './pages/ProjectPage';
 import MainLayout from './layout/MainLayout';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
+
+import Menu from './components/Menu/Menu';
+import Loader from './components/shared/Loader/Loader';
+import gsap from 'gsap';
+import { useLayoutEffect } from 'react';
+import SvgOverlay from './components/shared/SvgOverlay/SvgOverlay';
+
+import { personalProjectsData } from './data';
+import ProjectPage from './pages/ProjectPage/ProjectPage';
 
 
-
+//Custom Hook https://www.phind.com/search?cache=se7emk4runuxhk9fenma7o41
 
 function App() {
 
+  const [loaderFinished, setLoaderFinished] = useState(false)
+  const [timeline, setTimeline] = useState(null);
   const size = useWindowSize();
-  const app = useRef();
   const scrollContainer = useRef();
+
+
+
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setLoaderFinished(true);
+          console.log('animation true')
+        },
+      });
+      setTimeline(tl);
+    });
+
+    return () => context.revert();
+  }, []);
+
+ 
 
   const data = {
     ease: 0.05,
@@ -33,61 +60,75 @@ function App() {
 
   useEffect(() => {
     requestAnimationFrame(() => smoothScroll());
-  }, []);
+  }, [loaderFinished]);
+  
 
   useEffect(() => {
-    setBodyHeight()
-  },[size.height])
+
+    if(scrollContainer.current) {
+      setBodyHeight()
+    }
+
+  },[size.height, loaderFinished, pathname])
+
 
   const setBodyHeight = () => {
-    document.body.style.height = `${
-      scrollContainer.current.getBoundingClientRect().height
-    }px`;
+    if (scrollContainer.current) {
+      document.body.style.height = `${
+        scrollContainer.current.getBoundingClientRect().height
+      }px`;
+    }
   };
+   
 
   const smoothScroll = () => {
     data.current = window.scrollY;
     data.previous += (data.current - data.previous) * data.ease;
     data.rounded = Math.round(data.previous * 100) / 100;
 
-    scrollContainer.current.style.transform = `translateY(-${data.rounded}px)`;
+    if(scrollContainer.current){
+      scrollContainer.current.style.transform = `translateY(-${data.rounded}px)`;
 
-    requestAnimationFrame(() => smoothScroll());
+      requestAnimationFrame(() => smoothScroll());
+    } 
   }
 
 
   return (
     
     <MainContextProvider>
-      <MainLayout>
-
+    <SvgOverlay />
+    <MainLayout>
+      <Menu />
+      {loaderFinished ? (
         <section ref={scrollContainer} className='scroll'>
           <Routes>
+
+            {/* public routes */}
             <Route path="/" element={<HomePage/>} />
-            <Route path="/project" element={<ProjectPage />} />
+            {/* <Route path="/project" element={<ProjectPage />} /> */}
+
+            {personalProjectsData.map((project, index) => (
+              <Route
+                key={index}
+                path={project.link}
+                element={<ProjectPage data={project} />}
+                
+              />
+            ))}
+
+            {/* page not found */}
+            <Route path="*" element={<PageNotFound />} />
+
           </Routes>
         </section>
-
-      </MainLayout>
-    </MainContextProvider>
+      ) : (
+        <Loader />
+      )}
+    </MainLayout>
+  </MainContextProvider>
   );
 
-
-  //LAYOUT https://www.phind.com/search?cache=dskr9sl68pqmku84mu5dbodc
-
-  // return (
-  //   <>
-  //   <Header />
-  //   <main ref={app} className="app">
-  //     <section ref={scrollContainer} className='scroll'>
-  //       <Routes>
-  //         <Route path="/" element={<HomePage/>} />
-  //         <Route path="/project" element={<ProjectPage />} />
-  //       </Routes>
-  //     </section>
-  //   </main>
-  //   </>
-  // )
 }
  
 

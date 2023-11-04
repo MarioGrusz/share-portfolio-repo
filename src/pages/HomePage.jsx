@@ -16,7 +16,6 @@ const HomePage = () => {
     
   return (
     <>
-      <Menu/>
       <Hero />
       <AboutMe/>
       <Projects />

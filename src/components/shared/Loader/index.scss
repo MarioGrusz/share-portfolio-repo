@@ -1,0 +1,45 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.loader {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+
+  position: relative;
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $background-color;
+  overflow: hidden;
+  z-index: 10000;
+
+  &__progress-wrapper {
+    height: 0.1rem;
+    width: 80%;
+    z-index: 3;
+  }
+
+  &__progress {
+    height: 100%;
+    width: 100%;
+    background-color: $color-olive;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  &__progress-number {
+    z-index: 4;
+    white-space: nowrap;
+    color: $color-olive;
+    font-size: 3.2rem;
+  }
+
+  &__text {
+    font-size: 5rem;
+    color: $color-olive;
+    visibility: hidden;
+  }
+}
