@@ -5,11 +5,6 @@ import { introSvgAnimation } from "../SvgOverlay/animation";
 import { useMainContext } from "../../../context/MainContext";
 
 
-import { mainIntroAnimation } from "./animation";
-
-
-
-
 const Loader = ({ timeline }) => {
 
   const progressRef = useRef(null);
@@ -18,19 +13,16 @@ const Loader = ({ timeline }) => {
 
   const { overlayPathRef  } = useMainContext();
 
-  console.log('LOADER')
-
 
   useEffect(() => {
     if (timeline) {
     timeline
-        .add(mainIntroAnimation(progressRef, progressNumberRef, progressTextRef, overlayPathRef))     
+        .add(progressAnimation(progressRef, progressNumberRef, progressTextRef))  
+        .add(introSvgAnimation(overlayPathRef, true), '+=6')   
     }
    }, [timeline]);   
    
    
-
-
   return (
       
     <div className='loader'>

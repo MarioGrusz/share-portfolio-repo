@@ -1,5 +1,4 @@
 import { gsap } from "gsap";
-import { introSvgAnimation } from "../SvgOverlay/animation";
 
 
 
@@ -48,16 +47,7 @@ export const progressAnimation = (progressRef, progressNumberRef, progressTextRe
         duration: 0.3 }, "+=0.5");
     
 
-    return tl;
 };
 
 
-export const mainIntroAnimation = (progressRef, progressNumberRef, progressTextRef, overlayPathRef) => {
-    const tl = gsap.timeline();
-    tl.add(() => progressAnimation(progressRef, progressNumberRef, progressTextRef));
-    tl.add(() => introSvgAnimation(overlayPathRef))
-
-    return tl
-      
-}
   

@@ -50,7 +50,7 @@ export const MainContextProvider = ({ children }) => {
       text,
       setText,
       openMenu,
-      setOpenMenu
+      setOpenMenu,
     }
    
     return (

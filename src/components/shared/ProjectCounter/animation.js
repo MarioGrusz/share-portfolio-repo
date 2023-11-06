@@ -12,7 +12,7 @@ export const projectCounterAnimation = (numberContainerRef, numberRightRowRef, l
         scrollTrigger: {
         //markers: true,
         trigger: numberContainer,
-        start: 'top 75%', 
+        start: 'top 50%', 
         once: true, 
         },
     });

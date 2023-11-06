@@ -33,7 +33,7 @@ function App() {
     const context = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
-          setLoaderFinished(true);
+          setLoaderFinished(false);
           console.log('loader off')
         },
       });
@@ -92,7 +92,7 @@ function App() {
           </Routes>
         </section>
       ) : (
-        <Loader timeline={timeline} />
+        <Loader />
       )}
     </MainLayout>
   </MainContextProvider>

@@ -43,13 +43,16 @@ export function svgReveal(overlayPath){
 
 }
 
-
-export const introSvgAnimation = (overlayPath) => {
-  const tl = gsap.timeline();
-  tl.add(() => svgCover(overlayPath));
-  tl.add(() => svgReveal(overlayPath), '<+=1.3'); //1 second delay
-    
+export const introSvgAnimation = (overlayPath, returnTimeline = false) => {
+    const tl = gsap.timeline();
+    tl.add(() => svgCover(overlayPath));
+    tl.add(() => svgReveal(overlayPath), '<+=1.3'); //1 second delay
+   
+    if (returnTimeline) {
+      return tl;
+    }
 }
+   
 
 
 export const reverseIntroSvgAnimation = (overlayPath)  => {    

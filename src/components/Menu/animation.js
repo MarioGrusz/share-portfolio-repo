@@ -5,7 +5,7 @@ import { svgCover, svgReveal, introSvgAnimation, reverseIntroSvgAnimation } from
 export const openMenuAnim = (overlayPath, menuRef) => {
   console.log('open')
   const tl = gsap.timeline({});
-  tl.add(introSvgAnimation(overlayPath));
+  tl.add(introSvgAnimation(overlayPath, false));
   tl.to(menuRef.current, {autoAlpha: 1}, '+=1');
   tl.to(menuRef.current.querySelectorAll('a'), {
       top:0,
