@@ -1,30 +1,27 @@
 import { useRef, useEffect } from 'react';
 
 const useSmoothScroll = (start, scrollContainer) => {
-
-    console.log(start, 'start')
-   const data = useRef({
-       ease: 0.05,
-       current: 0,
-       previous: 0,
-       rounded: 0
-   });
+   const ease = useRef(0.05);
+   const current = useRef(0);
+   const previous = useRef(0);
+   const rounded = useRef(0);
 
    const smoothScroll = () => {
-       data.current = window.scrollY;
-       data.previous += (data.current - data.previous) * data.ease;
-       data.rounded = Math.round(data.previous * 100) / 100;
+       current.current = window.scrollY;
+       previous.current += (current.current - previous.current) * ease.current;
+       rounded.current = Math.round(previous.current * 100) / 100;
 
-       scrollContainer.current.style.transform = `translateY(-${data.rounded}px)`;
+       scrollContainer.current.style.transform = `translateY(-${rounded.current}px)`;
 
        requestAnimationFrame(smoothScroll);
    }
 
    useEffect(() => {
-       if(!start) return;
-
-       requestAnimationFrame(smoothScroll);
+       if(start) {
+           requestAnimationFrame(smoothScroll);
+       }
    }, [start]);
 }
 
 export default useSmoothScroll;
+

@@ -58,20 +58,45 @@ function App() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+ 
+
   useEffect(() => {
     requestAnimationFrame(() => smoothScroll());
   }, [loaderFinished]);
   
 
+  // useEffect(() => {
+
+  //   setTimeout(() => {
+
+  //     if(scrollContainer.current) {
+  //       setBodyHeight()
+  //     }
+
+  //   }, 0)
+
+    
+
+  // },[size.height, loaderFinished, pathname])
+
+
   useEffect(() => {
-
-    if(scrollContainer.current) {
-      setBodyHeight()
+    if (scrollContainer.current){
+      const resizeObserver = new ResizeObserver(() => {
+        setBodyHeight();
+      });
+      resizeObserver.observe(scrollContainer.current);
+      return () => resizeObserver.disconnect(); // clean up 
     }
+  }, [loaderFinished, pathname, scrollContainer]);
+   
+   
 
-  },[size.height, loaderFinished, pathname])
+
+  //SOLUTIOM https://www.phind.com/search?cache=ta26mzjfragvr0eonxw8jceu
 
 
+  
   const setBodyHeight = () => {
     if (scrollContainer.current) {
       document.body.style.height = `${
@@ -79,6 +104,16 @@ function App() {
       }px`;
     }
   };
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (pageContainerRef.current) {
+  //       const innerHeight = pageContainerRef.current.getBoundingClientRect().height;
+  //       console.log(innerHeight);
+  //     }
+  //   }, 0);
+  //  }, []);
+   
    
 
   const smoothScroll = () => {

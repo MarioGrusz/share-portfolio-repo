@@ -56,6 +56,8 @@ export const mainIntroAnimation = (progressRef, progressNumberRef, progressTextR
     const tl = gsap.timeline();
     tl.add(() => progressAnimation(progressRef, progressNumberRef, progressTextRef));
     tl.add(() => introSvgAnimation(overlayPathRef))
+
+    return tl
       
 }
   
