@@ -2,54 +2,73 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 import ButtonCircle from '../../components/shared/ButtonCircle/ButtonCircle';
 import { useMainContext } from '../../context/MainContext';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { parallax, imageRevealOnScroll } from './animations'
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+
 
 
 
 const ProjectPage = ({ data }) => {
 
-    const { setCursorType, setText, parallaxProjectElementRef } = useMainContext();
+    const { setCursorType, setText } = useMainContext();
+    const elementRefs = useRef([]);
+    const revealContainerRefs = useRef([])
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const timeline = useRef(gsap.timeline());
+
+
+    useEffect(() => {
+
+        //imageRevealOnScroll(revealContainerRefs)
+
+
+        const context = gsap.context(() => {
+      
+          timeline.current = gsap.timeline();
+          const tl = timeline.current;
+
+          tl.add(imageRevealOnScroll(revealContainerRefs))
+    
+       
+        });
+        return () => context.revert();
+    }, [])
+
+
+
     
 
     useEffect(() => {
         setCursorType('small')
         setText('')
+        
     }, [])
 
 
+    useEffect(() => {
+        const handleScroll = () => {
+          setScrollPosition(window.scrollY);
+        };
+     
+        window.addEventListener('scroll', handleScroll);
+     
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
+
     // useEffect(() => {
-    //     gsap.registerPlugin(ScrollTrigger);
-    
-    //     const elementsToAnimate = gsap.utils.toArray('.project__link-wrapper');
-    //     elementParallaxAnimation(elementsToAnimate);
-    
-    //     ScrollTrigger.refresh();
-    // }, []);
-
-
-    window.addEventListener('scroll', function(e) {
-
-        const target = document.querySelectorAll('.scroll');
-      
-      
-        var index = 0, length = target.length;
-        for (index; index < length; index++) {
-            var pos = window.pageYOffset * target[index].dataset.rate;
-      
-            if(target[index].dataset.direction === 'vertical') {
-                target[index].style.transform = 'translate3d(0px,'+pos+'px, 0px)';
-            } else {
-                var posX = window.pageYOffset * target[index].dataset.ratex;
-                var posY = window.pageYOffset * target[index].dataset.ratey;
-                
-                target[index].style.transform = 'translate3d('+posX+'px, '+posY+'px, 0px)';
-            }
-        }
-      
-      
-    });
+    //     if(elementRefs){
+    //         window.addEventListener('scroll', parallax(elementRefs, scrollPosition));
+     
+    //         return () => {
+    //         window.removeEventListener('scroll', parallax(elementRefs, scrollPosition));
+    //         };
+    //     }
+    // }, [scrollPosition, elementRefs]);
 
 
     return (
@@ -73,7 +92,7 @@ const ProjectPage = ({ data }) => {
                 <div className='project__container'>
 
                     <div className='project__image-wrapper' >
-                        <div ref={parallaxProjectElementRef} className='project__link-wrapper scroll'data-rate="-0.1" data-direction="vertical">
+                        <div ref={(el) => elementRefs.current[0] = el} className='project__link-wrapper scroll' data-rate="-0.1" data-direction="vertical">
                             <ButtonCircle backgroundColor="#879f87" color='black' text='LIVE PROJECT' />
                         </div>
                         <img src={data.mainImage} alt='laptop-mockup' />
@@ -105,14 +124,22 @@ const ProjectPage = ({ data }) => {
                 <div className='project__space-element'></div>
             </section>
 
-            <section className='project__sticky-image'>
-                <div  className='image-bottom' id='image-bottom'></div>
-                <div className='image-top' data-scroll-target='#image-bottom' data-scroll='true' data-scroll-sticky='true'>                
-                    <span>
-                        <img src={data.stickyImage} alt='laptopMockup' />
-                    </span>
+
+
+            {/* <section ref={(el) => revealContainerRefs.current[0] = el}  className='project__image-container'>
+                <div className='reveal'>                  
+                    <img src={data.stickyImage} alt='laptopMockup' />
+                </div
+            </section> */}
+
+            <main className='project-outer'>
+                <div ref={(el) => revealContainerRefs.current[0] = el}  className='project-single'>
+                    <div className='project-single-image-wrapper'>
+                        <img className='image' src={data.stickyImage} alt='laptopMockup'/>
+                    </div>
                 </div>
-            </section>
+            </main>
+
 
 
             <section className='project__text-wrapper'>

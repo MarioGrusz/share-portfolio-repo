@@ -195,41 +195,29 @@ $image-border-radious: 1rem;
     }
   }
 
-  &__sticky-image {
-    border-radius: $image-border-radious;
+  .project-outer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100vh;
     overflow: hidden;
-    position: relative;
-    aspect-ratio: 16/9;
-    margin-bottom: 6rem;
+  }
 
-    @include mq(phone, max) {
-      aspect-ratio: 16/12;
-    }
+  .project-single {
+    min-width: 300px;
+    width: 100%;
+  }
 
-    .image-bottom {
-      position: absolute;
-      bottom: -100vh;
-      top: -100vh;
-      left: 0;
-      right: 0;
+  .project-single-image-wrapper {
+    /* IMPORTANT FOR THE ANIMATION */
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    width: 100%;
+  }
 
-      @include mq(phone, max) {
-        display: none;
-      }
-    }
-
-    .image-top {
-      max-height: 100vh;
-      position: absolute;
-      top: -100vh;
-      bottom: 0;
-      left: 0;
-      right: 0;
-
-      @include mq(phone, max) {
-        top: 0;
-      }
-    }
+  .project-single-image-wrapper img {
+    /* IMPORTANT FOR THE ANIMATION */
+    scale: 1.3;
+    width: 100%;
   }
 
   &__mobile-mockups {
