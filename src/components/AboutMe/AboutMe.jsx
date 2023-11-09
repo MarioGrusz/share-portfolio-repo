@@ -11,7 +11,11 @@ const AboutMe = () => {
 
 
     useEffect(() => {
-        textAnimation();   
+
+        setTimeout(() => {
+            textAnimation();
+        }, 0);
+           
     }, [location]);
     
 

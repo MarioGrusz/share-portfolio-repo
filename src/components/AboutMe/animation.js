@@ -14,32 +14,36 @@ export const textAnimation = () => {
 
     document.querySelectorAll('[words-slide-up]').forEach((item, idx) => {
 
-        console.log('item',item)
+      // console.log('item',item)
 
-        if (item) {
-          let elements = item.querySelectorAll('.char');
-          console.log('elements', elements)
-          let tl = gsap.timeline({ paused: true });
-       
-          ScrollTrigger.create({
-            trigger: item,
-            start: "top 60%",
-            onEnter: () => {
-              console.log("ScrollTrigger entered");
-              tl.play();
-            }
-          });
-       
-          tl.from(elements, {
-            yPercent: 150,
-            duration: 0.4, 
-            ease: "power1.out",
-            stagger: { amount: 0.2 }
-          });
-       
-          tl.revert();
-        }
+      if (item) {
+        let elements = item.querySelectorAll('.char');
+        //console.log('elements', elements)
+        let tl = gsap.timeline({ paused: true });
+      
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 60%",
+          onEnter: () => {
+            console.log("ScrollTrigger entered");
+            tl.play();
+          }
+        });
+      
+        tl.from(elements, {
+          yPercent: 150,
+          duration: 0.4, 
+          ease: "power1.out",
+          stagger: { amount: 0.2 }
+        });
+      
+        tl.revert();
+      }
     });
-       
+  ScrollTrigger.refresh()
+
+  return () => {
+    ScrollTrigger.getAll().forEach(st => st.kill());
+  }
  
 }

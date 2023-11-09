@@ -16,14 +16,14 @@ const Projects = () => {
 
   const { setCursorType, setText } = useMainContext();
 
-  useEffect(() => {
-      gsap.registerPlugin(ScrollTrigger);
+  // useEffect(() => {
+  //     gsap.registerPlugin(ScrollTrigger);
   
-      const elementsToAnimate = gsap.utils.toArray('.image-parallax');
-      imagesParallaxAnimation(elementsToAnimate);
+  //     const elementsToAnimate = gsap.utils.toArray('.image-parallax');
+  //     imagesParallaxAnimation(elementsToAnimate);
   
-      ScrollTrigger.refresh();
-  }, []);
+  //     ScrollTrigger.refresh();
+  // }, []);
 
 
   const handleMouseEnter = () => {
