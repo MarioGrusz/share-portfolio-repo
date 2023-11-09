@@ -2,14 +2,17 @@ import "./index.scss";
 import { useEffect } from "react";
 import aboutMeText from "./text";
 import { textAnimation } from "./animation";
+import { useLocation } from "react-router-dom";
 
 
 const AboutMe = () => {
 
+    const location = useLocation();
+
 
     useEffect(() => {
         textAnimation();   
-    }, []);
+    }, [location]);
     
 
     return (

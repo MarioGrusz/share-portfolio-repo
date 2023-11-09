@@ -58,17 +58,25 @@ const ProjectPage = ({ data }) => {
         };
     }, []);
 
+    const handleReload = () => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 500); // Adjust the delay as needed
+    };
+
+    //https://www.phind.com/search?cache=jqrmnx1di1ltbrvu9uzfcle8
 
 
-    // useEffect(() => {
-    //     if(elementRefs){
-    //         window.addEventListener('scroll', parallax(elementRefs, scrollPosition));
+
+    useEffect(() => {
+        if(elementRefs){
+            window.addEventListener('scroll', parallax(elementRefs, scrollPosition));
      
-    //         return () => {
-    //         window.removeEventListener('scroll', parallax(elementRefs, scrollPosition));
-    //         };
-    //     }
-    // }, [scrollPosition, elementRefs]);
+            return () => {
+            window.removeEventListener('scroll', parallax(elementRefs, scrollPosition));
+            };
+        }
+    }, [scrollPosition, elementRefs]);
 
 
     return (

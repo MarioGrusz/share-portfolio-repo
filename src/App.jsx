@@ -24,7 +24,7 @@ function App() {
 
   const [loaderFinished, setLoaderFinished] = useState(false)
   const [timeline, setTimeline] = useState(null);
-  const scrollContainer = useRef();
+  const scrollContainer = useRef(null);
   const { pathname } = useLocation();
 
 
@@ -43,7 +43,9 @@ function App() {
     return () => context.revert();
   }, []);
 
-  useSmoothScroll(loaderFinished, scrollContainer); 
+  useSmoothScroll(loaderFinished, scrollContainer, pathname);
+   
+    
 
   useEffect(() => {
     window.scrollTo(0, 0);

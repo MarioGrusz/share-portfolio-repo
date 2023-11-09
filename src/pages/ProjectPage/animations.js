@@ -45,21 +45,21 @@ const imageRevealOnScroll = (revealContainerRefs) => {
     const wrapper = container.querySelector('.project-single-image-wrapper')
     const image = container.querySelector("img")
  
-    console.log({wrapper, image})
  
     const tl = gsap.timeline({
       scrollTrigger: {
-          trigger: wrapper,
-          start: 'top 65%',
-          //markers: true,
-          onLeaveBack: () => {
-            tl.reverse();
-          },
-          onEnterBack: () => {
-            tl.play();
-          }
+        trigger: wrapper,
+        start: 'top 65%',
+        //markers: true,
+        onLeaveBack: () => {
+          tl.reverse();
+        },
+        onEnterBack: () => {
+          tl.play();
+        }
       }
     })
+    tl.pause()
     tl.to(wrapper, {
       ease: "power2",
       duration: 3,
