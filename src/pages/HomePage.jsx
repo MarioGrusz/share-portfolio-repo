@@ -8,9 +8,6 @@ import Projects from '../components/Projects/Projects'
 import Footer from '../components/Footer/Footer'
 import Menu from '../components/Menu/Menu'
 
-
-//refactoring https://www.phind.com/search?cache=dskr9sl68pqmku84mu5dbodc
-
 const HomePage = () => {
 
     
