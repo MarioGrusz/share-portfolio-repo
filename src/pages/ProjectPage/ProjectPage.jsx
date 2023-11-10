@@ -8,7 +8,7 @@ import gsap from 'gsap';
 import ProjectsMenu from '../../components/ProjectsMenu/ProjectsMenu';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
-let allRefsReady = false;
+
 
 const ProjectPage = ({ data }) => {
 
@@ -22,25 +22,12 @@ const ProjectPage = ({ data }) => {
 
 
     const pinContainerRef = useRef()
-    const pinElementRef = useRef()
-
-    useEffect(() => {
-        allRefsReady = pinContainerRef.current && pinElementRef.current && elementRefs.current && containerColorRef.current && revealContainerRefs.current && scrollContainerColorRef.current;
-    }, [pinContainerRef.current, pinElementRef.current, elementRefs.current, containerColorRef.current, revealContainerRefs.current, scrollContainerColorRef.current]);
-  
+    const pinElementRef = useRef() 
+   
    
     useEffect(() => {
         ScrollTrigger.refresh();
     }, [ScrollTrigger.getAll()]);
-
-
-    // useEffect(() => {
-
-    //     if(allRefsReady){
-    //         pinElementAnimation(pinContainerRef, pinElementRef)
-    //     }
-
-    // }, [allRefsReady])
 
 
     useLayoutEffect(() => {
@@ -53,7 +40,7 @@ const ProjectPage = ({ data }) => {
        
         });
         return () => context.revert();
-    }, [allRefsReady])
+    }, [])
 
 
     useEffect(() => {
@@ -62,7 +49,7 @@ const ProjectPage = ({ data }) => {
     }, [])
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleScroll = () => {
           setScrollPosition(window.scrollY);
         };
@@ -70,9 +57,9 @@ const ProjectPage = ({ data }) => {
         return () => {
           window.removeEventListener('scroll', handleScroll);
         };
-    }, [allRefsReady]);
+    }, []);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(elementRefs){
             window.addEventListener('scroll', parallax(elementRefs, scrollPosition));
      
@@ -80,7 +67,7 @@ const ProjectPage = ({ data }) => {
             window.removeEventListener('scroll', parallax(elementRefs, scrollPosition));
             };
         }
-    }, [allRefsReady, scrollPosition]);
+    }, [scrollPosition]);
 
 
     return (
