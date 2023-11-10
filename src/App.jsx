@@ -32,6 +32,7 @@ function App() {
   useEffect(() => {
     ScrollTrigger.refresh();
   }, [ScrollTrigger.getAll()]);
+ 
 
 
 
@@ -50,7 +51,6 @@ function App() {
   }, []);
 
   useSmoothScroll(loaderFinished, scrollContainer, pathname);
-   
     
 
   useEffect(() => {
@@ -108,7 +108,4 @@ function App() {
   );
 
 }
- 
-
-
 export default App

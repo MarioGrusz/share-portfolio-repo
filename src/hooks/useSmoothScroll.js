@@ -10,7 +10,6 @@ const useSmoothScroll = (start, scrollContainer, pathname) => {
    const previous = useRef(0);
    const rounded = useRef(0);
 
-   console.log({ease, current, previous, rounded})
 
    const smoothScroll = () => {
        current.current = window.scrollY;

@@ -2,8 +2,6 @@ import "./index.scss";
 import { useEffect, useRef } from "react";
 import { projectCounterAnimation } from "./animation";
 
-//refactored https://www.phind.com/search?cache=ja8jb8299ef4c65750zzrkf7
-
 
 const ProjectCounter = ({ dataNumber }) => {
 

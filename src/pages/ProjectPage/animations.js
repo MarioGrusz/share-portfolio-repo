@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const parallax = (elementRefs, scrollPosition) => {
 
-  //const targets = elementRefs.current
   const targets = elementRefs.current ?? [];
 
   targets?.forEach((target) => {
@@ -43,7 +42,7 @@ const imageRevealOnScroll = (revealContainerRef) => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: wrapper,
-        start: 'top 65%',
+        start: 'bottom top',
         //markers: true,
         onLeaveBack: () => {
           tl.reverse();
@@ -85,11 +84,10 @@ const colorChangeOnScroll = (containerColorRef, scrollContainerColorRef) => {
 
     const currentBg = colorSection.dataset.bgcolor;
     const currentText = colorSection.dataset.textcolor
-    console.log({prevBg, prevText, currentBg, currentText})
 
     ScrollTrigger.create({
       trigger: colorSection,
-      start: "top 30%",
+      start: "bottom top",
       //markers: true,
       onEnter: () =>
         gsap.to(scroller, {
@@ -106,6 +104,24 @@ const colorChangeOnScroll = (containerColorRef, scrollContainerColorRef) => {
     });
   }) 
 }
+
+
+const pinElementAnimation = (pinContainerRef, pinElementRef) => {
+
+  console.log('pinanimation')
+
+  if(pinContainerRef && pinElementRef) {
+    ScrollTrigger.create({
+      trigger: pinContainerRef.current,
+      start: 'top top',
+      end: 'bottom, bottom',
+      markers: true,
+      pin: pinElementRef.current
+    })
+  }
+
+
+}
  
  
  
@@ -114,4 +130,5 @@ export {
   parallax,
   imageRevealOnScroll,
   colorChangeOnScroll,
+  pinElementAnimation,
 }

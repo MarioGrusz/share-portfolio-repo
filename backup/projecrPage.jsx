@@ -8,8 +8,6 @@ import gsap from 'gsap';
 import ProjectsMenu from '../../components/ProjectsMenu/ProjectsMenu';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
-let allRefsReady = false;
-
 const ProjectPage = ({ data }) => {
 
     const { setCursorType, setText } = useMainContext();
@@ -25,22 +23,16 @@ const ProjectPage = ({ data }) => {
     const pinElementRef = useRef()
 
     useEffect(() => {
-        allRefsReady = pinContainerRef.current && pinElementRef.current && elementRefs.current && containerColorRef.current && revealContainerRefs.current && scrollContainerColorRef.current;
-    }, [pinContainerRef.current, pinElementRef.current, elementRefs.current, containerColorRef.current, revealContainerRefs.current, scrollContainerColorRef.current]);
-  
-   
-    useEffect(() => {
         ScrollTrigger.refresh();
     }, [ScrollTrigger.getAll()]);
 
+    useEffect(() => {
 
-    // useEffect(() => {
+        if(pinContainerRef.current, pinElementRef.current){
+            pinElementAnimation(pinContainerRef, pinElementRef)
+        }
 
-    //     if(allRefsReady){
-    //         pinElementAnimation(pinContainerRef, pinElementRef)
-    //     }
-
-    // }, [allRefsReady])
+    }, [pinContainerRef.current, pinElementRef.current])
 
 
     useLayoutEffect(() => {
@@ -53,7 +45,7 @@ const ProjectPage = ({ data }) => {
        
         });
         return () => context.revert();
-    }, [allRefsReady])
+    }, [])
 
 
     useEffect(() => {
@@ -70,7 +62,7 @@ const ProjectPage = ({ data }) => {
         return () => {
           window.removeEventListener('scroll', handleScroll);
         };
-    }, [allRefsReady]);
+    }, []);
 
     useEffect(() => {
         if(elementRefs){
@@ -80,7 +72,7 @@ const ProjectPage = ({ data }) => {
             window.removeEventListener('scroll', parallax(elementRefs, scrollPosition));
             };
         }
-    }, [allRefsReady, scrollPosition]);
+    }, [scrollPosition, elementRefs]);
 
 
     return (
