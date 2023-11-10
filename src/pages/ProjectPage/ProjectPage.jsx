@@ -2,47 +2,39 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 import ButtonCircle from '../../components/shared/ButtonCircle/ButtonCircle';
 import { useMainContext } from '../../context/MainContext';
-import { useEffect, useRef, useState } from 'react';
-import { parallax, imageRevealOnScroll } from './animations'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { parallax, imageRevealOnScroll, colorChangeOnScroll } from './animations'
 import gsap from 'gsap';
-
-
+import ProjectsMenu from '../../components/ProjectsMenu/ProjectsMenu';
 
 
 const ProjectPage = ({ data }) => {
 
     const { setCursorType, setText } = useMainContext();
     const elementRefs = useRef([]);
+    const containerColorRef = useRef([])
+    const scrollContainerColorRef = useRef(null)
     const revealContainerRefs = useRef([])
     const [scrollPosition, setScrollPosition] = useState(0);
     const timeline = useRef(gsap.timeline());
 
 
-    useEffect(() => {
-
-        //imageRevealOnScroll(revealContainerRefs)
-
-
-        const context = gsap.context(() => {
-      
+    useLayoutEffect(() => {
+        const context = gsap.context(() => { 
           timeline.current = gsap.timeline();
           const tl = timeline.current;
 
           tl.add(imageRevealOnScroll(revealContainerRefs))
-    
+          tl.add(colorChangeOnScroll(containerColorRef, scrollContainerColorRef))
        
         });
         return () => context.revert();
     }, [])
 
 
-
-    
-
     useEffect(() => {
         setCursorType('small')
-        setText('')
-        
+        setText('')    
     }, [])
 
 
@@ -50,23 +42,11 @@ const ProjectPage = ({ data }) => {
         const handleScroll = () => {
           setScrollPosition(window.scrollY);
         };
-     
         window.addEventListener('scroll', handleScroll);
-     
         return () => {
           window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-    const handleReload = () => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 500); // Adjust the delay as needed
-    };
-
-    //https://www.phind.com/search?cache=jqrmnx1di1ltbrvu9uzfcle8
-
-
 
     useEffect(() => {
         if(elementRefs){
@@ -81,9 +61,13 @@ const ProjectPage = ({ data }) => {
 
     return (
 
-        <main className='project'>
+        <main ref={scrollContainerColorRef} className='project'>
 
-            <section className='project__header'>
+            <section className='project__header'
+                ref={(el) => containerColorRef.current[0] = el} 
+                data-bgcolor="#e1dfd6"  //initial color
+                data-textcolor="hsl(0, 0%, 9%)" //initial color
+            >
 
                 <div className='project__container flex-column'>
 
@@ -95,12 +79,13 @@ const ProjectPage = ({ data }) => {
                     </div>
 
                 </div>
-
-
                 <div className='project__container'>
 
                     <div className='project__image-wrapper' >
-                        <div ref={(el) => elementRefs.current[0] = el} className='project__link-wrapper scroll' data-rate="-0.1" data-direction="vertical">
+                        <div ref={(el) => elementRefs.current[0] = el} className='project__link-wrapper scroll' 
+                            data-rate="-0.1" 
+                            data-direction="vertical"
+                        >
                             <ButtonCircle backgroundColor="#879f87" color='black' text='LIVE PROJECT' />
                         </div>
                         <img src={data.mainImage} alt='laptop-mockup' />
@@ -110,53 +95,58 @@ const ProjectPage = ({ data }) => {
 
             </section>
 
-
-            <section className='project__overview'>
+            <section className='project__overview' 
+                ref={(el) => containerColorRef.current[1] = el} 
+                data-bgcolor="#bcb8ad" 
+                data-textcolor="#032f35"
+            >
 
                 <div className='project__space-element'></div>
-            
-
                 <div className='project__text-wrapper'>
 
-                    <h2 className='project__text-headline' data-scroll data-scroll-speed='2'>
+                    <h2 className='project__text-headline'>
                         <b>/00</b>Overview
                     </h2>
 
 
-                    <p className='project__text-description' data-scroll data-scroll-speed='1'>
+                    <p className='project__text-description'>
                         {data.overview}
                     </p>
 
                 </div>
-
                 <div className='project__space-element'></div>
+
             </section>
 
+            <section className='project__image-outer'>
 
-
-            {/* <section ref={(el) => revealContainerRefs.current[0] = el}  className='project__image-container'>
-                <div className='reveal'>                  
-                    <img src={data.stickyImage} alt='laptopMockup' />
-                </div
-            </section> */}
-
-            <main className='project-outer'>
-                <div ref={(el) => revealContainerRefs.current[0] = el}  className='project-single'>
-                    <div className='project-single-image-wrapper'>
+                <div className='line'></div>
+                <div className='project__description'>
+                    <h2>
+                        <span>Everyday</span>
+                        <br/>
+                        <span>Coffee</span>
+                        <br/>
+                        <span>Routine</span>
+                        <br/>
+                    </h2>
+                </div>
+                <div ref={(el) => revealContainerRefs.current[0] = el} className='project__image-reveal-container'>
+                    <div className='project__image-reveal-wrapper'>
                         <img className='image' src={data.stickyImage} alt='laptopMockup'/>
                     </div>
                 </div>
-            </main>
+                
+            </section>
 
-
-
-            <section className='project__text-wrapper'>
+            <section className='project__text-wrapper'
+                ref={(el) => containerColorRef.current[2] = el} 
+                data-bgcolor="#879f87"
+            >
 
                 <p className='project__text-headline'>
                     <b>/01</b>Problem
                 </p>
-
-
                 <p className='project__text-description'>
                     {data.problem}
                 </p>
@@ -168,20 +158,15 @@ const ProjectPage = ({ data }) => {
                 <p className='project__text-headline'>
                     <b>/02</b>Solution
                 </p>
-
-
                 <div className='project__text-description'>
                     <p>
                         {data.solution}
                     </p>
-
-
                     <ol>
                         {data.solution_list.map((item, index) => (
                         <li key={index} dangerouslySetInnerHTML={{ __html: item }} /> // The dangerouslySetInnerHTML prop is used to render the HTML tags within each item. (instead of innerHTML)
                         ))}
                     </ol>
-
                 </div>
 
             </section>
@@ -191,18 +176,13 @@ const ProjectPage = ({ data }) => {
                 <p className='project__text-headline'>
                     <b>/03</b>Tech Stack
                 </p>
-
-
                 <p className='project__text-description'>
                     {data.architecture}
                 </p>
 
             </section>
-
-
-
-            <section className='project__mobile-mockups' id='image-mobile'   >
-
+            
+            <section className='project__mobile-mockups' id='image-mobile'>
 
                 <div className='project__image-wrapper-left'  >
                     <img data-scroll-target='#image-mobile' data-scroll='true' data-scroll-sticky='true' src={data.secondMobileMockup} alt='mobileMockup'/>
@@ -215,21 +195,20 @@ const ProjectPage = ({ data }) => {
 
                     <div className='project__image-wrapper-right'>
                         <img src={data.firstMobileMockup} alt='mobileMockup'/>
-                    </div>
-
-                
+                    </div>               
                     <ButtonCircle text='start a project'/>
                     
                 </div>
 
-
-
             </section>
 
-            <section className='project__menu-wrapper'>
-                {/* <ProjectsMenu />    */}
+            <section className='project__menu-wrapper'
+             ref={(el) => containerColorRef.current[0] = el} 
+                data-bgcolor="#e1dfd6"  //initial color
+                data-textcolor="hsl(0, 0%, 9%)" //initial color
+            >
+                <ProjectsMenu />
             </section> 
-
 
             <section className='project__footer'>
                 <p>Go to</p>

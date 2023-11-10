@@ -17,6 +17,8 @@ import { personalProjectsData } from './data';
 import ProjectPage from './pages/ProjectPage/ProjectPage';
 import useSmoothScroll from './hooks/useSmoothScroll';
 import setBodyHeight from './utils/setBodyHeight';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import Header from './components/Header/Header';
 
 
 
@@ -26,6 +28,10 @@ function App() {
   const [timeline, setTimeline] = useState(null);
   const scrollContainer = useRef(null);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    ScrollTrigger.refresh();
+  }, [ScrollTrigger.getAll()]);
 
 
 
@@ -70,6 +76,7 @@ function App() {
     <MainContextProvider>
     <SvgOverlay />
     <MainLayout>
+      <Header/>
       <Menu />
       {loaderFinished ? (
         <section ref={scrollContainer} className='scroll'>

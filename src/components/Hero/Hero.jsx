@@ -1,11 +1,22 @@
 import "./index.scss";
 import { useEffect, useRef } from "react";
+import introTextAnimation from "./animation";
+import gsap from "gsap";
 
 
 const Hero = () => {
 
-  
+    const timeline = useRef(gsap.timeline());
     const heroTextRefs = [useRef(null), useRef(null)];
+
+    useEffect(() => {
+        const context = gsap.context(() => {
+            const tl = timeline.current;
+            tl.add(introTextAnimation(heroTextRefs))
+        });
+
+        return () => context.revert();
+    }, [])
 
     return (
         <>

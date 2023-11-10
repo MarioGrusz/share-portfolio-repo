@@ -2,7 +2,6 @@ import './index.scss';
 import { useEffect } from 'react';
 import { projectsData } from '../../data';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
 import { imagesParallaxAnimation } from './animation';
 import ProjectCounter from '../shared/ProjectCounter/ProjectCounter';
 import ArrowSvg from '../shared/ArrowSvg/ArrovSvg';
@@ -16,14 +15,15 @@ const Projects = () => {
 
   const { setCursorType, setText } = useMainContext();
 
-  // useEffect(() => {
-  //     gsap.registerPlugin(ScrollTrigger);
-  
-  //     const elementsToAnimate = gsap.utils.toArray('.image-parallax');
-  //     imagesParallaxAnimation(elementsToAnimate);
-  
-  //     ScrollTrigger.refresh();
-  // }, []);
+  useEffect(() => {
+    
+    setTimeout(() => { 
+      const elementsToAnimate = gsap.utils.toArray('.image-parallax');
+      imagesParallaxAnimation(elementsToAnimate);
+
+    },1000);
+     
+  }, []);
 
 
   const handleMouseEnter = () => {

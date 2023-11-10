@@ -6,7 +6,8 @@ import ProductivityHelperImage from './assets/mockup__red-laptop.jpg';
 import laptopMockupBeanSearcher from './assets/mockup__laptop-on-grey.jpg';
 import laptopMockupProductivity from './assets/mockup__mobile-on-grey.jpg';
 import laptopMockupChatBot from './assets/mockup-ipad.webp';
-import laptopMockupSticky from './assets/laptop-mockup.webp';
+//import laptopMockupSticky from './assets/laptop-mockup.webp';
+import laptopMockupSticky from './assets/mockup__mobile-on-grey.jpg';
 import mobileMockup from './assets/mobile_01.png';
 import mobileMockup2 from './assets/BNG iphone.jpg';
 

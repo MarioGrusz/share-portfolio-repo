@@ -14,11 +14,8 @@ export const textAnimation = () => {
 
     document.querySelectorAll('[words-slide-up]').forEach((item, idx) => {
 
-      // console.log('item',item)
-
       if (item) {
         let elements = item.querySelectorAll('.char');
-        //console.log('elements', elements)
         let tl = gsap.timeline({ paused: true });
       
         ScrollTrigger.create({

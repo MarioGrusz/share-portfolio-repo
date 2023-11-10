@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 
 const parallax = (elementRefs, scrollPosition) => {
@@ -6,43 +7,36 @@ const parallax = (elementRefs, scrollPosition) => {
   //const targets = elementRefs.current
   const targets = elementRefs.current ?? [];
 
+  targets?.forEach((target) => {
 
-    targets?.forEach((target) => {
+    if(target !== null) {
 
-      if(target !== null) {
-
-        let rate = target.dataset.rate; 
-        let direction = target.dataset.direction;
-        let pos = scrollPosition * rate;
-    
-    
-        if(direction === 'vertical') {
-          target.style.transform = `translate3d(0px, ${pos}px, 0px)`;
-        } else {
-          let posX = scrollPosition * target?.dataset.ratex;
-          let posY = scrollPosition * target?.dataset.ratey;
-    
-          target.style.transform = `translate3d(${posX}px, ${posY}px, 0px)`;
-        }
-
+      let rate = target.dataset.rate; 
+      let direction = target.dataset.direction;
+      let pos = scrollPosition * rate;
+  
+  
+      if(direction === 'vertical') {
+        target.style.transform = `translate3d(0px, ${pos}px, 0px)`;
+      } else {
+        let posX = scrollPosition * target?.dataset.ratex;
+        let posY = scrollPosition * target?.dataset.ratey;
+  
+        target.style.transform = `translate3d(${posX}px, ${posY}px, 0px)`;
       }
 
-      
-    });
-  
-
- 
- 
+    }      
+  });
 }
 
 
 
-const imageRevealOnScroll = (revealContainerRefs) => {
+const imageRevealOnScroll = (revealContainerRef) => {
 
-  const revealContainers = revealContainerRefs.current;
+  const revealContainers = revealContainerRef.current;
  
   revealContainers.forEach((container) => {
-    const wrapper = container.querySelector('.project-single-image-wrapper')
+    const wrapper = container.querySelector('.project__image-reveal-wrapper')
     const image = container.querySelector("img")
  
  
@@ -56,7 +50,7 @@ const imageRevealOnScroll = (revealContainerRefs) => {
         },
         onEnterBack: () => {
           tl.play();
-        }
+        },
       }
     })
     tl.pause()
@@ -73,66 +67,51 @@ const imageRevealOnScroll = (revealContainerRefs) => {
   })
  
 }
+
+
+
+const colorChangeOnScroll = (containerColorRef, scrollContainerColorRef) => {
+
+
+  const scroller = scrollContainerColorRef.current
+  const scrollColorElems = containerColorRef.current
+
+  const initialBg = scroller.dataset.bgcolor;
+  const initialText = scroller.dataset.textcolor;
+
+  scrollColorElems.forEach((colorSection, i) => {
+    const prevBg = i === 0 ? "" : scrollColorElems[i - 1].dataset.bgcolor;
+    const prevText = i === 0 ? "" : scrollColorElems[i - 1].dataset.textcolor;
+
+    const currentBg = colorSection.dataset.bgcolor;
+    const currentText = colorSection.dataset.textcolor
+    console.log({prevBg, prevText, currentBg, currentText})
+
+    ScrollTrigger.create({
+      trigger: colorSection,
+      start: "top 30%",
+      //markers: true,
+      onEnter: () =>
+        gsap.to(scroller, {
+          backgroundColor: currentBg,
+          color: currentText,
+          overwrite: "auto"
+        }),
+      onLeaveBack: () =>
+        gsap.to(scroller, {
+          backgroundColor: prevBg,
+          color: prevText,
+          overwrite: "auto"
+        })
+    });
+  }) 
+}
  
-
-
-
-
-
-// const imageRevealOnScroll = (revealContainerRefs) => {
-
-//   const revealContainers = revealContainerRefs.current;
-
-//   console.log(revealContainerRefs)
-  
-
-//   revealContainers.forEach((container) => {
-//     let image = container.querySelector("img")
-//     console.log(image)
-//     const timeline = gsap.timeline({
-//       scrollTrigger: {
-//         trigger: container,
-//         //toggleActions: "restart none none reset"
-//       }
-//     });
-//     timeline.set(container, { autoAlpha: 1 });
-//     timeline.from(container, {
-//       duration: 1.5,
-//       xPercent: 50,
-//       ease: Power2.out
-//     });
-//     timeline.from(image, {
-//       duration: 1.5,
-//       xPercent: 100,
-//       scale: 1.3,
-//       delay: -1.5,
-//       ease: Power2.out
-//     });
-//   });
-
-// }
  
  
 
 export {
   parallax,
   imageRevealOnScroll,
+  colorChangeOnScroll,
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//https://www.phind.com/search?cache=u4363d8eem68v2hngy66pqzc
-
-
-//https://www.phind.com/search?cache=sfaaivzc37w7vvksx6jlffcj
-//https://www.phind.com/search?cache=u4363d8eem68v2hngy66pqzc
-   

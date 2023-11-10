@@ -30,7 +30,7 @@ export const closeMenuAnim = (overlayPath, menuRef) => {
       amount: 0.2,
     },
   }, '+=0.4');
-  tl.to(menuRef.current, { autoAlpha: 0 }, '<+=0.9');
+  tl.to(menuRef.current, { autoAlpha: 0 }, '<+=0.5');
   return tl;
 }
 
